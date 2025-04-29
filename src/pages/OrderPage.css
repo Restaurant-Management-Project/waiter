@@ -1,0 +1,136 @@
+.order-page-container {
+    padding: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    background-color: #2d2d2d;
+    border: 2px solid #555;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.order-page-title {
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.selected-items-container {
+    margin-top: 20px;
+}
+
+.selected-items-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.selected-item {
+    background-color: #3a3a3a;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.item-price {
+    font-size: 16px;
+    color: #b5b5b5;
+}
+
+.remove-button {
+    color: #1f1f1f;
+    background-color: #ffb3b3;
+    border: 1px solid #ff5c5c;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    max-width: 100px;
+}
+
+.remove-button:hover {
+    background-color: #ff7f7f;
+}
+
+.confirm-order-button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    color: #1f1f1f;
+    background-color: #a8ff9e;
+    border: 1px solid #67fd67;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.confirm-order-button:hover {
+    background-color: #7bff6e;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.quantity-controls button {
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #5e5e5e;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.modal-actions button {
+    background: #3B3B3B;
+    width: 85%;
+    margin: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+}
+
+input {
+    padding: 8px;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #3B3B3B;
+}

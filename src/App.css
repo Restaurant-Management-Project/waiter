@@ -1,0 +1,25 @@
+.nav-bar {
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px;
+    background-color: #333;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #555;
+}
+
+.nav-link.active {
+    background-color: #777; /* Lighter background for active tab */
+    color: #fff;
+}

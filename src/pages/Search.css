@@ -1,0 +1,60 @@
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    width: 95%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #888;
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 90%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 8px;
+    margin-top: 5px;
+    z-index: 10;
+}
+
+.search-item {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background-color: #505050;
+}
+
+.search-item-name {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.search-item-description {
+    font-size: 14px;
+    color: #b5b5b5;
+    margin-top: 2px;
+}
+
+.search-item-price {
+    font-size: 16px;
+    color: #90ee90;
+    margin-top: 2px;
+}
