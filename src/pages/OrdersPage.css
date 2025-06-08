@@ -1,0 +1,58 @@
+.orders-page {
+    padding: 20px;
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.order-card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.order-table-id {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.items-table th,
+.items-table td {
+    padding: 12px;
+    border-bottom: 1px solid #444;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.items-table th:nth-child(1),
+.items-table td:nth-child(1) {
+    width: 50%;
+}
+
+.items-table th:nth-child(2),
+.items-table td:nth-child(2) {
+    width: 25%;
+    text-align: center;
+}
+
+.items-table th:nth-child(3),
+.items-table td:nth-child(3) {
+    width: 25%;
+    text-align: right;
+}
+
+.footer {
+    color: #acf1b0;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}

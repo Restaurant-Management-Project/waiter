@@ -29,7 +29,24 @@
     margin-bottom: 10px;
     border-radius: 8px;
     display: flex;
+    flex-direction: column; /* Stack top-row and ingredients */
+}
+
+.item-top-row {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.ingredients-list {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4a4a4a;
+    border-radius: 6px;
+}
+
+.item-icon-and-info {
+    display: flex;
     align-items: center;
 }
 
@@ -133,4 +150,28 @@ input {
     margin-bottom: 20px;
     border-radius: 8px;
     background: #3B3B3B;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.ingredient-controls {
+    display: flex;
+}
+.ingredient-controls button {
+    margin: 0 4px;
+    height: 30px;
+    width: 30px;
+}
+
+.chevron {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    margin-right: 10px;
+}
+.chevron.expanded {
+    transform: rotate(180deg);
 }

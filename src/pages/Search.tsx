@@ -6,6 +6,7 @@ type MenuItem = {
     id: number;
     name: string;
     description: string;
+    ingredients: string;
     price: string;
     is_available: boolean;
     created_at: string;
@@ -53,7 +54,8 @@ export function Search({ onItemSelect }: SearchProps) {
 
         const filtered = menuItems.filter(item =>
             item.name.toLowerCase().includes(value.toLowerCase()) ||
-            item.description.toLowerCase().includes(value.toLowerCase())
+            item.description.toLowerCase().includes(value.toLowerCase()) ||
+            item.ingredients.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredItems(filtered);
         setShowDropdown(true);
@@ -93,7 +95,8 @@ export function Search({ onItemSelect }: SearchProps) {
                         >
                             <div className="search-item-name">{item.name}</div>
                             <div className="search-item-description">{item.description}</div>
-                            <div className="search-item-price">{item.price} €</div>
+                            <div className="search-item-description">{item.ingredients}</div>
+                            <div className="search-item-price">{item.price} MDL</div>
                         </li>
                     ))}
                 </ul>

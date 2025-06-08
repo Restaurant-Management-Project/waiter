@@ -12,23 +12,10 @@ interface Action {
 const RequestsPage: React.FC = () => {
     const [activeActions, setActiveActions] = useState<Action[]>([]);
     const [selectedRow, setSelectedRow] = useState<number | null>(null);
-    const [_tick, setTick] = useState(0);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("/requests");
-                const reversedData = response.data.slice().reverse();
-                const filteredActions = reversedData.filter((action: Action) => !action.is_handled);
-                setActiveActions(filteredActions);
-            } catch (error) {
-                console.error("Error fetching active requests:", error);
-            }
-        };
-
-        fetchData();
-
-        const socket = new WebSocket("ws://localhost:8001/ws/requests/");
+        const zoneId = localStorage.getItem('zone');
+        const socket = new WebSocket(`ws://localhost:8001/ws/zones/?zone_id=${zoneId}`);
 
         socket.onopen = () => {
             console.log("WebSocket connected");
@@ -62,14 +49,6 @@ const RequestsPage: React.FC = () => {
         return () => {
             socket.close();
         };
-    }, []);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setTick((prev) => prev + 1);
-        }, 1000);
-
-        return () => clearInterval(interval);
     }, []);
 
     const formatTimeDifference = (timestamp: number): string => {

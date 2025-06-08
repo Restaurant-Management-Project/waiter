@@ -7,6 +7,7 @@ type MenuItem = {
     id: number;
     name: string;
     description: string;
+    ingredients: string;
     price: string;
     is_available: boolean;
     created_at: string;
@@ -14,6 +15,8 @@ type MenuItem = {
 
 type SelectedItem = MenuItem & {
     quantity: number;
+    expanded?: boolean;
+    customIngredients?: { [ingredient: string]: number };
 };
 
 export function OrderPage() {
@@ -22,6 +25,9 @@ export function OrderPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleItemSelect = (item: MenuItem) => {
+        const ingredientsList = parseIngredients(item.ingredients);
+        const ingredientsMap = Object.fromEntries(ingredientsList.map(ing => [ing, 1]));
+
         setSelectedItems(prev => {
             const existing = prev.find(selected => selected.id === item.id);
             if (existing) {
@@ -31,7 +37,15 @@ export function OrderPage() {
                         : selected
                 );
             } else {
-                return [...prev, { ...item, quantity: 1 }];
+                return [
+                    ...prev,
+                    {
+                        ...item,
+                        quantity: 1,
+                        customIngredients: ingredientsMap,
+                        expanded: false,
+                    },
+                ];
             }
         });
     };
@@ -68,14 +82,43 @@ export function OrderPage() {
                 await axios.post(`/tables/${tableNumber}/add-item/`, payload);
             }
 
-            alert('Order successfully sent!');
             setSelectedItems([]); // Clear selected items
             setIsModalOpen(false); // Close modal
         } catch (error) {
             console.error('Error sending order:', error);
-            alert('Failed to send order.');
         }
     };
+
+    const parseIngredients = (ingredients: string): string[] => {
+        return ingredients.split(',').map(i => i.trim());
+    }
+
+    const toggleItemExpand = (itemId: number) => {
+        setSelectedItems(prev =>
+            prev.map(item =>
+                item.id === itemId ? { ...item, expanded: !item.expanded } : item
+            )
+        );
+    };
+
+    const updateIngredientQuantity = (itemId: number, ingredient: string, delta: number) => {
+        setSelectedItems(prev =>
+            prev.map(item => {
+                if (item.id === itemId && item.customIngredients) {
+                    const current = item.customIngredients[ingredient];
+                    return {
+                        ...item,
+                        customIngredients: {
+                            ...item.customIngredients,
+                            [ingredient]: Math.max(0, current + delta),
+                        }
+                    };
+                }
+                return item;
+            })
+        );
+    };
+
 
     return (
         <div className="order-page-container">
@@ -106,21 +149,44 @@ export function OrderPage() {
                 <ul className="selected-items-list">
                     {selectedItems.map(item => (
                         <li key={item.id} className="selected-item">
-                            <div className="item-info">
-                                <span className="item-name">{item.name}</span>
-                                <span className="item-price">{item.price} €</span>
-                                <div className="quantity-controls">
-                                    <button onClick={() => updateQuantity(item.id, -1)}>-</button>
-                                    <span>{item.quantity}</span>
-                                    <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                            <div className="item-top-row">
+                                <div className="item-icon-and-info">
+                                <span className={`chevron ${item.expanded ? 'expanded' : ''}`}>▼</span>
+                                <div className="item-info" onClick={() => toggleItemExpand(item.id)}>
+                                    <span className="item-name">{item.name}</span>
+                                    <span className="item-price">{item.price} MDL</span>
+                                    <div className="quantity-controls">
+                                        <button onClick={(e) => { e.stopPropagation(); updateQuantity(item.id, -1); }}>-</button>
+                                        <span>{item.quantity}</span>
+                                        <button onClick={(e) => { e.stopPropagation(); updateQuantity(item.id, 1); }}>+</button>
+                                    </div>
                                 </div>
+                                </div>
+                                <button
+                                    className="remove-button"
+                                    onClick={() => handleRemoveItem(item.id)}
+                                >
+                                    Remove
+                                </button>
                             </div>
-                            <button
-                                className="remove-button"
-                                onClick={() => handleRemoveItem(item.id)}
-                            >
-                                Remove
-                            </button>
+
+                            {item.expanded && item.customIngredients && (
+                                <div className="ingredients-list">
+                                    <h4>Ingredients:</h4>
+                                    <ul>
+                                        {Object.entries(item.customIngredients).map(([ingredient, qty]) => (
+                                            <li key={ingredient} className="ingredient-item">
+                                                <span>{ingredient}</span>
+                                                <div className="ingredient-controls">
+                                                    <button onClick={() => updateIngredientQuantity(item.id, ingredient, -1)}>-</button>
+                                                    <span>{qty}</span>
+                                                    <button onClick={() => updateIngredientQuantity(item.id, ingredient, 1)}>+</button>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </li>
                     ))}
                 </ul>
